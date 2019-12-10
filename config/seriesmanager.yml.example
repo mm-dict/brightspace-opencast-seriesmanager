@@ -1,0 +1,80 @@
+### Ufora OpenCast Series Manager Configuration Settings
+---
+bs:
+  app_creds:
+    app_id: ''
+    app_key: ''
+  user_creds:
+    user_id: ''
+    user_key: ''
+  courses_endpoint: 'https://ufora.ugent.be/d2l/api/lp/1.9/orgstructure/?orgUnitType=3'
+  host: 'ufora.ugent.be'
+
+bs_qa:
+  app_creds:
+    app_id: ''
+    app_key: ''
+  user_creds:
+    user_id: ''
+    user_key: ''
+  courses_endpoint: 'https://uforaqas.ugent.be/d2l/api/lp/1.9/orgstructure/?orgUnitType=3'
+  host: 'uforaqas.ugent.be'
+
+opencast_qa:
+  host: ''
+  # username: ''
+  # password: ''
+  username: 'Admin'
+  password: 'opencast'
+  db_file: 'output/series.json'
+  ufora_series_prefix: 'ufora.ugent.be'
+
+opencast:
+  host: ''
+  username: ''
+  password: ''
+  db_file: 'output/series.json'
+  ufora_series_prefix: 'ufora.ugent.be'
+
+seriesmanager:
+
+### Toggle application level debug (does not toggle framework debugging)
+# debug: false
+
+### Where external (third-party) plugins are loaded from
+# plugin_dir: /var/lib/seriesmanager/plugins/
+
+### Where all plugin configurations are loaded from
+# plugin_config_dir: /etc/seriesmanager/plugins.d/
+
+### Where external templates are loaded from
+# template_dir: /var/lib/seriesmanager/templates/
+
+### The log handler label
+# log_handler: colorlog
+
+### The output handler label
+# output_handler: jinja2
+
+### sample foo option
+# foo: bar
+
+log.colorlog:
+
+### Where the log file lives (no log file by default)
+# file: null
+
+### The level for which to log.  One of: info, warning, error, fatal, debug
+  level: debug
+
+### Whether or not to log to console
+# to_console: true
+
+### Whether or not to rotate the log file when it reaches `max_bytes`
+# rotate: false
+
+### Max size in bytes that a log file can grow until it is rotated.
+# max_bytes: 512000
+
+### The maximun number of log files to maintain when rotating
+# max_files: 4
