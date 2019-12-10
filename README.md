@@ -70,4 +70,16 @@ $ docker run -it seriesmanager --help
 
 ## Usage
 
-### Ufora courses
+### List all series in OpenCast
+
+```
+|> seriesmanager <|  $ seriesmanager series list
+```
+
+### Create OpenCast series
+
+prd_fulldump_pretty_20190911.json is the Ufora courses dumpfile.
+
+```
+|> seriesmanager <|  $ seriesmanager series import-from-memory output/prd_fulldump_pretty_20190911.json
+```
