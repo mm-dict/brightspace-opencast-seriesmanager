@@ -70,6 +70,16 @@ $ docker run -it seriesmanager --help
 
 ## Usage
 
+### Config file
+
+Copy the config example from the config dir into your homedir with filename '.seriesmanager.yml' (make it a hidden file)
+
+```
+$ cp config/seriesmanager.yml.example ~/.seriesmanager.yml
+```
+
+
+
 ### List all series in OpenCast
 
 ```
