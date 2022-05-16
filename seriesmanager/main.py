@@ -6,6 +6,7 @@ from .controllers.base import Base
 from .controllers.courses import Courses
 from .controllers.series import Series
 from .controllers.schedules import Schedules
+from .controllers.cleanupseries import CleanupSeries
 
 import d2lvalence.auth as d2lauth
 
@@ -31,6 +32,8 @@ def extend_d2l_uc(app):
             app_key = app.config.get('bs','app_creds')['app_key'],
             encrypt_requests = True,
             signer = s)
+
+    app.log.debug('using user id : ' + app.config.get('bs','user_creds')['user_id'])
 
     app.extend('d2l_uc',uc)
 
@@ -86,6 +89,7 @@ class SeriesManager(App):
             Courses,
             Series,
             Schedules,
+            CleanupSeries
         ]
 
         hooks = [

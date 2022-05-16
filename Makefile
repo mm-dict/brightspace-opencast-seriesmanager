@@ -4,7 +4,7 @@ clean:
 	find . -name '*.py[co]' -delete
 
 virtualenv:
-	virtualenv -p python3 --prompt '|> seriesmanager <| ' env
+	python3 -m venv -p python3 --prompt '|> seriesmanager <| ' env
 	env/bin/pip install -r requirements-dev.txt
 	env/bin/python setup.py develop
 	@echo

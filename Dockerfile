@@ -6,7 +6,7 @@ WORKDIR /src
 COPY . /src
 COPY config/seriesmanager.yml /etc/seriesmanager/seriesmanager.yml
 
-RUN pip install --no-cache-dir -r requirements.txt \
-    && python setup.py install
+RUN pip install --no-cache-dir -r requirements.txt
+RUN python setup.py install
 WORKDIR /
 ENTRYPOINT ["seriesmanager"]

@@ -1,8 +1,11 @@
 # ignore config file
 config/seriesmanager.yml
+.seriesmanager.yml
+seriesmanager.yml
 
 # don't store output dir
 output/
+*.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -14,6 +17,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+bin/
 build/
 develop-eggs/
 dist/

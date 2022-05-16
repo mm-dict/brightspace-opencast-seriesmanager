@@ -155,19 +155,40 @@ class Series(Controller):
         ]
         """
 
-        acl = '''
+        acl = f"""
         [
-          {
+          {{
+            "allow": true,
+            "action": "read",
+            "role": "ROLE_ADMIN"
+          }},
+          {{
             "allow": true,
             "action": "write",
             "role": "ROLE_ADMIN"
-          },
-          {
+          }},
+          {{
             "allow": true,
             "action": "read",
-            "role": "ROLE_USER"
-          }
-        ]'''
+            "role": "{ufora_identifier}_Instructor"
+          }},
+          {{
+            "allow": true,
+            "action": "write",
+            "role": "{ufora_identifier}_Instructor"
+          }},
+          {{
+            "allow": true,
+            "action": "read",
+            "role": "{ufora_identifier}_Learner"
+          }},
+          {{
+            "allow": true,
+            "action": "read",
+            "role": "ROLE_{series_shorttitle}"
+          }}
+        ]
+        """
 
         payload = { 'metadata': metadata, 'acl': acl }
 
@@ -276,11 +297,6 @@ class Series(Controller):
                         "allow": true,
                         "action": "write",
                         "role": "ROLE_ADMIN"
-                      }},
-                      {{
-                        "allow": true,
-                        "action": "read",
-                        "role": "ROLE_USER"
                       }},
                       {{
                         "allow": true,

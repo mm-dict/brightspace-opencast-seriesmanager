@@ -16,6 +16,9 @@ class Courses(Controller):
             (['-c','--course-code'],
             {'help':'Ufora course code','dest':'course_code'}
             ),
+            (['--orgunit-code'],
+            {'help':'Ufora orgunit code','dest':'orgunit_code'}
+            ),
             (['-o','--output-file'],
             {'help':'Write result to given output file','dest':'output_file'}
             ),
@@ -33,18 +36,26 @@ class Courses(Controller):
         result = []
         if self.app.pargs.course_code is not None:
             course_code = self.app.pargs.course_code
-            url = 'https://' + self.app.config.get('bs','host') + '/d2l/api/lp/1.9/orgstructure/?orgUnitType=3&orgUnitCode=' + course_code
+            url = 'https://' + self.app.config.get('bs','host') + '/d2l/api/lp/1.31/orgstructure/?orgUnitType=3&orgUnitCode=' + course_code
 
             self.app.log.info('Listing Ufora courses matching code: ' + course_code)
         else:
-            url = 'https://' + self.app.config.get('bs','host') + '/d2l/api/lp/1.9/orgstructure/?orgUnitType=3'
-            self.app.log.info('Listing all Ufora courses')
+            if self.app.pargs.orgunit_code is not None:
+                url = 'https://' + self.app.config.get('bs','host') + '/d2l/api/lp/1.31/orgstructure/' + self.app.pargs.orgunit_code + '/children/paged/?orgUnitType=3'
+                self.app.log.info('Listing children of ufora orgunit code ' + self.app.pargs.orgunit_code )
+            else:
+                url = 'https://' + self.app.config.get('bs','host') + '/d2l/api/lp/1.31/orgstructure/?orgUnitType=3'
+                self.app.log.info('Listing all Ufora courses')
+
 
         while paged_results:
+            self.app.log.info('using url: ' + url)
+            self.app.log.debug(requests.get(url, auth=self.app.d2l_uc))
             r = requests.get(url, auth=self.app.d2l_uc).json()
 
             u = urlparse(url)
             parsed = u.query.split('&')
+            self.app.log.debug(parsed)
 
             arg_offset = 1
             if self.app.pargs.course_code is not None:
@@ -53,7 +64,8 @@ class Courses(Controller):
             if len(parsed) > arg_offset :
                 parsed[arg_offset] = 'bookmark=' + r['PagingInfo']['Bookmark']
             else:
-                parsed.insert(arg_offset, 'bookmark=' + r['PagingInfo']['Bookmark'])
+                self.app.log.debug(arg_offset)
+                parsed.insert(int(arg_offset), 'bookmark=' + r['PagingInfo']['Bookmark'])
             url = urlunparse([u.scheme, u.netloc, u.path, u.params, "&".join(parsed), u.fragment])
             result.append(r['Items'])
 
